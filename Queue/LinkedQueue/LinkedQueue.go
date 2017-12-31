@@ -8,21 +8,21 @@ type Node struct {
 
 // A Queue is a first in, first out data structure.
 type Queue struct {
-	current *Node
-	length  int
+	front  *Node
+	length int
 }
 
 // Queue constructor which creates an empty Queue.
 func new() *Queue {
 	queue := new()
-	queue.current = nil
+	queue.front = nil
 	queue.length = 0
 	return queue
 }
 
 // Empty empties the Queue.
 func (queue *Queue) Empty() {
-	queue.current = nil
+	queue.front = nil
 	queue.length = 0
 }
 
@@ -41,15 +41,15 @@ func (queue *Queue) Len() int {
 
 // Peek returns next Node to be dequeued.
 func (queue *Queue) Peek() *Node {
-	return queue.current
+	return queue.front
 }
 
 // Enqueue adds a Node to the end of the Queue.
 func (queue *Queue) Enqueue(Data interface{}) {
 	if queue.length == 0 {
-		queue.current = &Node{Data: Data, Next: nil}
+		queue.front = &Node{Data: Data, Next: nil}
 	} else {
-		temp := queue.current
+		temp := queue.front
 		for temp.Next != nil {
 			temp = temp.Next
 		}
@@ -60,8 +60,8 @@ func (queue *Queue) Enqueue(Data interface{}) {
 
 // Dequeue removes the first Node in the Queue and returns it.
 func (queue *Queue) Dequeue() *Node {
-	temp := queue.current
-	queue.current = queue.current.Next
+	temp := queue.front
+	queue.front = queue.front.Next
 	queue.length--
 	return temp
 }
